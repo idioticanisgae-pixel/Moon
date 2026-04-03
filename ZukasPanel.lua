@@ -31051,64 +31051,58 @@ RegisterCommand({
     warn("removed, give em hell soldier")
 end)
 RegisterCommand({
-    Name        = "headless2",
-    Aliases     = {"spookyhead"},
-    Description = "remove ur head",
+    Name        = "pcrash",
+    Aliases     = {"pcr"},
+    Description = "equip the viper in pthfm",
     ArgsDesc    = {},
     Permissions = {},
 }, function(args, speaker)
-    local FLOAT_HEAD    = false
-    local FLOAT_HEIGHT  = 50
-    local REJOIN_SAFE   = true
-    local Players     = game:GetService("Players")
-    local LocalPlayer = Players.LocalPlayer
-    local function goHeadless(character)
-        if not character then return end
-        local head = character:WaitForChild("Head", 10)
-        local hrp  = character:WaitForChild("HumanoidRootPart", 10)
-        if not head or not hrp then return end
-        head.Transparency = 1
-        head.CanCollide   = false
-        for _, part in ipairs(character:GetDescendants()) do
-            if part:IsA("Accessory") then
-                local handle = part:FindFirstChild("Handle")
-                if handle then
-                    local weld = handle:FindFirstChildOfClass("Weld")
-                        or handle:FindFirstChildOfClass("WeldConstraint")
-                    if weld then
-                        handle.Transparency = 1
-                    end
-                end
-            end
-            if part:IsA("Decal") and part.Name == "face" then
-                part.Transparency = 1
-            end
-        end
-        for _, obj in ipairs(character:GetDescendants()) do
-            if obj:IsA("Motor6D") and obj.Name == "Neck" then
-                obj.Enabled = false
-                break
-            end
-        end
-        if FLOAT_HEAD then
-            head.Anchored = false
-            head.CFrame   = CFrame.new(hrp.Position + Vector3.new(0, FLOAT_HEIGHT, 0))
-        else
-            head.Anchored = true
-        end
-        print("[Headless] Applied.")
-    end
-    if not game:IsLoaded() then
-        game.Loaded:Wait()
-    end
-    if LocalPlayer.Character then
-        task.spawn(goHeadless, LocalPlayer.Character)
-    end
-    if REJOIN_SAFE then
-        LocalPlayer.CharacterAdded:Connect(function(character)
-            task.spawn(goHeadless, character)
-        end)
-    end
+    |local targetModule = require(game:GetService("ReplicatedStorage").Modules.WeaponSettings.Gun.Viper.Setting["1"])
+    if setreadonly then setreadonly(targetModule, false) end
+    targetModule.LaserTrailConstantDamage = 999999
+    targetModule.PenetrationIgnoreDelay = 0
+    targetModule.AngleX_Min = 0
+    targetModule.Spread = 0
+    targetModule.BaseDamage = 999999
+    targetModule.LaserTrailDamageRate = 999999
+    targetModule.Auto = true
+    targetModule.ChargingTime = 0
+    targetModule.EquipTime = 0
+    targetModule.BurstRate = 0
+    targetModule.Recoil = 0
+    targetModule.LaserTrailDamage = 999999
+    targetModule.ShotgunEnabled = true
+    targetModule.Knockback = 9999999
+    targetModule.AmmoPerMag = 999999
+    targetModule.FireRate = 0.01
+    targetModule.ZeroDamageDistance = 999999
+    targetModule.HeadshotHitmarker = 100
+    targetModule.TacticalReloadTime = 0
+    targetModule.ReduceSelfDamageOnAirOnly = 999999
+    targetModule.LaserTrailCriticalDamageMultiplier = 999999
+    targetModule.DelayAfterFiring = 0
+    targetModule.DelayBeforeFiring = 0
+    targetModule.DamageDropOffEnabled = 999999
+    targetModule.LaserTrailCriticalDamageEnabled = 999999
+    targetModule.Range = 90000
+    targetModule.BulletType = nil
+    targetModule.ProjectileType = nil
+    targetModule.BulletSpeed = 90000
+    targetModule.DamageableLaserTrail = 999999
+    targetModule.SelfDamage = 999999
+    targetModule.ReloadTime = 0
+    targetModule.DamageBasedOnDistance = 999999
+    targetModule.SwitchTime = 0
+    targetModule.FriendlyFire = true
+    targetModule.BulletPerShot = 3450
+    targetModule.FullDamageDistance = 999999
+    targetModule.SilenceEffect = true
+    targetModule.HeadshotDamageMultiplier = 999999
+    targetModule.Accuracy = 0
+    targetModule.AngleX_Max = 0
+    targetModule.SelfDamageRedution = 999999
+    if setreadonly then setreadonly(targetModule, true) end
+    print('use the viper.')
 end)
 Modules.InfiniteJump = {
     State = {
