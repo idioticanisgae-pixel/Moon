@@ -1,18 +1,40 @@
   --[[
-Dex 
+              __          ________               
+__________ __|  | _____  _\_____  \      .__     
+\___   /  |  \  |/ /\  \/ //  ____/    __|  |___ 
+ /    /|  |  /    <  \   //       \   /__    __/ 
+/_____ \____/|__|_ \  \_/ \_______ \     |__|    
+      \/          \/              \/             
 
 --]]
+     local Players               =      game:GetService("Players")
+          local UserInputService      =           game:GetService("UserInputService")
+               local localPlayer           =                Players.LocalPlayer
+                     local playerGui             =                     localPlayer:WaitForChild("PlayerGui")
 
+
+--[[if not getgenv().EnvironmentInitialized then
+    getgenv().EnvironmentInitialized = true
+    task.spawn(function()
+        if localPlayer then
+            localPlayer.ReplicationFocus = workspace
+        end
+        pcall(function()
+            local robloxGui = coreGui:FindFirstChild("RobloxGui")
+            if robloxGui then
+                local networkPause = robloxGui:FindFirstChild("CoreScripts/NetworkPause")
+                if networkPause then
+                    networkPause:Destroy()
+                end
+            end
+        end)
+    end)
+end]]
 
 
 
 local FLOAT_PRECISION = 7
 
-
-                 local Players               =      game:GetService("Players")
-                 local UserInputService      =           game:GetService("UserInputService")
-                 local localPlayer           =                Players.LocalPlayer
-                 local playerGui             =                     localPlayer:WaitForChild("PlayerGui")
 
 
 local Reader = {}
@@ -2602,7 +2624,7 @@ local function mk(cls, props, parent)
     return i
 end
 local sg = mk("ScreenGui", {
-    Name="Zukv2_AllInOne", DisplayOrder=10,
+    Name="ExperienceChat", DisplayOrder=10,
     ZIndexBehavior=Enum.ZIndexBehavior.Global, ResetOnSpawn=false
 })
 local PANEL_W       = 260
