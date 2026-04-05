@@ -17,7 +17,9 @@ task.spawn(function()
         ConfigSettings = { ConfigFolder = "ZukaPanelLuna" },
         KeySystem      = false,
     })
+
     local PT = Window:CreateTab({ Name = "Player", Icon = "person", ImageSource = "Material", ShowTitle = true })
+
     PT:CreateSection("Spectate")
     PT:CreateLabel({ Text = "Select a player then hit Spectate", Style = 3 })
     local _spectateTarget = nil
@@ -60,6 +62,7 @@ task.spawn(function()
             _refreshSpectateOptions()
             DoNotif("Player list refreshed.", 2)
         end })
+
     PT:CreateDivider()
     PT:CreateSection("Teleport to Player")
     PT:CreateLabel({ Text = "Silently teleport behind a target", Style = 3 })
@@ -89,6 +92,7 @@ task.spawn(function()
                 DoNotif("Could not find character parts.", 3)
             end
         end })
+
     PT:CreateDivider()
     PT:CreateSection("Avatar Morph")
     PT:CreateLabel({ Text = "Copy another player's avatar onto yours", Style = 3 })
@@ -107,7 +111,9 @@ task.spawn(function()
         Callback = function()
             Modules.CharacterMorph:Revert()
         end })
+
     local TP = Window:CreateTab({ Name = "Teleport", Icon = "near_me", ImageSource = "Material", ShowTitle = true })
+
     TP:CreateSection("Waypoints")
     TP:CreateLabel({ Text = "Save up to 10 named positions and tp back to them", Style = 3 })
     local _waypointNameInput = ""
@@ -139,6 +145,7 @@ task.spawn(function()
         Callback = function() Modules.Waypoint:List() end })
     TP:CreateButton({ Name = "Clear All Waypoints", Description = "Delete every saved waypoint",
         Callback = function() Modules.Waypoint:Clear() end })
+
     TP:CreateDivider()
     TP:CreateSection("Coordinate Teleport")
     TP:CreateLabel({ Text = "Jump to exact X, Y, Z coordinates", Style = 3 })
@@ -165,6 +172,7 @@ task.spawn(function()
             if setclipboard then setclipboard(str) DoNotif("Copied: " .. str, 2)
             else DoNotif(str, 4) end
         end })
+
     TP:CreateDivider()
     TP:CreateSection("Quick Teleports")
     TP:CreateButton({ Name = "TP to Spawn", Description = "Teleport to the map's spawn location",
@@ -190,7 +198,9 @@ task.spawn(function()
             if hrp then hrp.CFrame = hrp.CFrame + Vector3.new(0, 2000, 0) DoNotif("Launched upwards.", 2)
             else DoNotif("No character found.", 3) end
         end })
+
     local Anti = Window:CreateTab({ Name = "Anti+", Icon = "shield", ImageSource = "Material", ShowTitle = true })
+
     Anti:CreateSection("Position & Physics")
     Anti:CreateToggle({ Name = "Anti Reset",        Description = "Prevent death and void falls",         CurrentValue = false,
         Callback = function(v) if v then Modules.AntiReset:Enable() else Modules.AntiReset:Disable() end end }, "anti_antireset")
@@ -206,6 +216,7 @@ task.spawn(function()
         Callback = function() Modules.AntiPlayerPhysics:Toggle() end }, "anti_antiphysics")
     Anti:CreateToggle({ Name = "Knockback Nullifier", Description = "Cancel velocity spikes and knockback", CurrentValue = false,
         Callback = function() Modules.KnockbackNullifier:Toggle() end }, "anti_knockback")
+
     Anti:CreateDivider()
     Anti:CreateSection("Character Integrity")
     Anti:CreateToggle({ Name = "Anti Kill",         Description = "Keep humanoid health above 0",         CurrentValue = false,
@@ -218,12 +229,14 @@ task.spawn(function()
         Callback = function() Modules.AntiSlapGear:Toggle() end }, "anti_antislapgear")
     Anti:CreateToggle({ Name = "Humanoid Integrity", Description = "Lock humanoid stats against tampering", CurrentValue = false,
         Callback = function() Modules.HumanoidIntegrity:Toggle() end }, "anti_humintegrity")
+
     Anti:CreateDivider()
     Anti:CreateSection("Session")
     Anti:CreateToggle({ Name = "Anti AFK",          Description = "Prevent idle disconnect",              CurrentValue = false,
         Callback = function() Modules.InternalAntiAfk:Toggle() end }, "anti_antiafk")
     Anti:CreateToggle({ Name = "Fling Protection",  Description = "Prevent being flung by other players", CurrentValue = false,
         Callback = function() Modules.FlingProtection:Toggle() end }, "anti_flingprot")
+
     Anti:CreateDivider()
     Anti:CreateButton({ Name = "✦  Enable All Anti", Description = "Turn on every toggle in this tab at once",
         Callback = function()
@@ -243,6 +256,7 @@ task.spawn(function()
             pcall(function() if not Modules.FlingProtection.State.IsEnabled then Modules.FlingProtection:Toggle() end end)
             DoNotif("All anti protections enabled.", 3)
         end })
+
     local Movement = Window:CreateTab({ Name = "Movement", Icon = "directions_run", ImageSource = "Material", ShowTitle = true })
     Movement:CreateToggle({ Name = "Fly",           Description = "Toggle client-sided fly",       CurrentValue = false, Callback = function() Modules.Fly:Toggle() end }, "luna_fly")
     Movement:CreateToggle({ Name = "NoClip",        Description = "Walk through walls",             CurrentValue = false, Callback = function() Modules.NoClip:Toggle() end }, "luna_noclip")
@@ -286,6 +300,7 @@ task.spawn(function()
                 Modules.FovChanger.State.IsEnabled = true
             end
         end }, "luna_fov")
+        
     local Utility = Window:CreateTab({ Name = "Utility", Icon = "build", ImageSource = "Material", ShowTitle = true })
     Utility:CreateToggle({ Name = "Anti AFK",         Description = "Prevent idle disconnect",             CurrentValue = false, Callback = function() Modules.InternalAntiAfk:Toggle() end }, "luna_afk")
     Utility:CreateToggle({ Name = "Fling Protection", Description = "Prevent being flung",                 CurrentValue = false, Callback = function() Modules.FlingProtection:Toggle() end }, "luna_fp")
@@ -327,9 +342,9 @@ task.spawn(function()
     local LS = Window:CreateTab({ Name = "Loadstrings", Icon = "code", ImageSource = "Material", ShowTitle = true })
     local function ls(url, msg) pcall(loadstringCmd, url, msg) end
     LS:CreateSection("Tools & Utilities")
-    LS:CreateButton({ Name = "Zex / Dex+",          Description = "Updated Dex Explorer",                    Callback = function() ls("https://raw.githubusercontent.com/zukatech1/Main-Repo/refs/heads/main/Zex.lua", "Loading Zex..") end })
-    LS:CreateButton({ Name = "Ghidra",               Description = "HEX Overseer — better than all",         Callback = function() ls("https://raw.githubusercontent.com/zukatech1/Main-Repo/refs/heads/main/HEXOverseer.lua", "Loading..") end })
-    LS:CreateButton({ Name = "Rem",                  Description = "In-game exploit creation kit",           Callback = function() ls("https://e-vil.com/anbu/rem.lua", "Loading Rem.") end })
+  --  LS:CreateButton({ Name = "Zex / Dex+",          Description = "Updated Dex Explorer",                    Callback = function() ls("https://raw.githubusercontent.com/zukatech1/Main-Repo/refs/heads/main/Zex.lua", "Loading Zex..") end })
+  --  LS:CreateButton({ Name = "Ghidra",               Description = "HEX Overseer — better than all",         Callback = function() ls("https://raw.githubusercontent.com/zukatech1/Main-Repo/refs/heads/main/HEXOverseer.lua", "Loading..") end })
+  --  LS:CreateButton({ Name = "Rem",                  Description = "In-game exploit creation kit",           Callback = function() ls("https://e-vil.com/anbu/rem.lua", "Loading Rem.") end })
     LS:CreateButton({ Name = "Teleporter / Game Finder", Description = "Game Universe UI",                   Callback = function() ls("https://raw.githubusercontent.com/zukatech1/ZukaTechPanel/refs/heads/main/GameFinder.lua", "stolen from nameless-admin") end })
     LS:CreateButton({ Name = "Improved Btools",      Description = "Upgraded GUI for btools",                Callback = function() ls("https://raw.githubusercontent.com/zukatech1/ZukaTechPanel/refs/heads/main/buildtools.lua", "Loading Revamped Btools Gui") end })
     LS:CreateButton({ Name = "Stats Lock",           Description = "Edit and lock your properties",          Callback = function() ls("https://raw.githubusercontent.com/legalize8ga-maker/Scripts/refs/heads/main/statlock.lua", "Loading Stats..") end })
@@ -344,15 +359,15 @@ task.spawn(function()
     LS:CreateButton({ Name = "Reach Fix",            Description = "Make equipped tool invisible w/ reach",  Callback = function() ls("https://raw.githubusercontent.com/legalize8ga-maker/Scripts/refs/heads/main/InvisibleEquippedTool.lua", "Fixed") end })
     LS:CreateButton({ Name = "Wall Walk (WIP)",      Description = "Work in progress",                       Callback = function() ls("https://raw.githubusercontent.com/zukatech1/Main-Repo/refs/heads/main/WorkINPro.lua", "Anti Gay Shield Activated.") end })
     LS:CreateButton({ Name = "Remove Forcefield",    Description = "Client-side forcefield remover",         Callback = function() ls("https://raw.githubusercontent.com/zukatech1/ZukaTechPanel/refs/heads/main/removeforcefield.txt", "Loading..") end })
-    LS:CreateButton({ Name = "Remove Adonis",        Description = "Says no to Adonis",                      Callback = function() ls("https://raw.githubusercontent.com/zukatech1/Main-Repo/refs/heads/main/ByeByeAdonis.lua", "Loading..") end })
+    LS:CreateButton({ Name = "Remove Adonis Anti-Cheat",        Description = "Says no to Adonis",                      Callback = function() ls("https://raw.githubusercontent.com/idioticanisgae-pixel/fourfortyfivepmsundaymarch29build/refs/heads/main/Client.lua", "Loading..") end })
     LS:CreateSection("Combat & Weapons")
     LS:CreateButton({ Name = "Auto Fling",           Description = "Pwned flinger",                          Callback = function() ls("https://raw.githubusercontent.com/zukatech1/ZukaTechPanel/refs/heads/main/Ultimatefling.lua", "Loaded!") end })
     LS:CreateButton({ Name = "Touch Fling GUI",      Description = "Simple touch fling GUI",                 Callback = function() ls("https://raw.githubusercontent.com/legalize8ga-maker/Scripts/refs/heads/main/SimpleTouchFlingGui.lua", "Loaded") end })
     LS:CreateButton({ Name = "Sword Bot",            Description = "Auto sword fighter — use E and R",       Callback = function() ls("https://raw.githubusercontent.com/bloxtech1/luaprojects2/refs/heads/main/swordnpc", "Bot loaded.") end })
-    LS:CreateButton({ Name = "CSGO Bhop",            Description = "Bhop movement",                          Callback = function() ls("https://raw.githubusercontent.com/zukatech1/ZukaTechPanel/refs/heads/main/phoon.lua", "Loading") end })
+   -- LS:CreateButton({ Name = "CSGO Bhop",            Description = "Bhop movement",                          Callback = function() ls("https://raw.githubusercontent.com/zukatech1/ZukaTechPanel/refs/heads/main/phoon.lua", "Loading") end })
     LS:CreateButton({ Name = "Doom Hammer",          Description = "For dumb bossfights",                    Callback = function() ls("https://raw.githubusercontent.com/zukatech1/ZukaTechPanel/refs/heads/main/doomshammer.lua", "Loading..") end })
     LS:CreateButton({ Name = "TP to Swords",         Description = "Sword grabber for bossfight games",      Callback = function() ls("https://raw.githubusercontent.com/zukatech1/ZukaTechPanel/refs/heads/main/SwordGrabberBossfightGame.lua", "Loading..") end })
-    LS:CreateButton({ Name = "Lag Server",           Description = "Server payload (WIP)",                   Callback = function() ls("https://raw.githubusercontent.com/zukatech1/ZukaTechPanel/refs/heads/main/gamelagger.lua", "Loading..") end })
+    --LS:CreateButton({ Name = "Lag Server",           Description = "Server payload (WIP)",                   Callback = function() ls("https://raw.githubusercontent.com/zukatech1/ZukaTechPanel/refs/heads/main/gamelagger.lua", "Loading..") end })
     LS:CreateSection("Game Specific")
     LS:CreateSection("► Zombie Game")
     LS:CreateButton({ Name = "ZG — Sniper",          Description = "Zombie Game",                            Callback = function() ls("https://raw.githubusercontent.com/zukatech1/ZukaTechPanel/refs/heads/main/sniperZG.lua", "Loading..") end })
@@ -366,13 +381,13 @@ task.spawn(function()
     LS:CreateSection("► Protect The House")
     LS:CreateButton({ Name = "PTHM — Gun Lagger",    Description = "Protect The House from Monsters",        Callback = function() ls("https://raw.githubusercontent.com/zukatech1/ZukaTechPanel/refs/heads/main/Lagger.lua", "Loading..") end })
     LS:CreateButton({ Name = "PTHM — Gun Lagger 2",  Description = "Protect The House — machine gun",        Callback = function() ls("https://raw.githubusercontent.com/zukatech1/ZukaTechPanel/refs/heads/main/machinegun.lua", "Loading..") end })
-    LS:CreateButton({ Name = "PTHM — P-Launcher",    Description = "Protect The House — projectile lagger",  Callback = function() ls("https://raw.githubusercontent.com/zukatech1/ZukaTechPanel/refs/heads/main/GameLaggerPlauncher.lua", "Loading Modification") end })
-    LS:CreateButton({ Name = "PTHM — Pumpkin",       Description = "Protect The House — rapid fire pumpkin", Callback = function() ls("https://raw.githubusercontent.com/zukatech1/ZukaTechPanel/refs/heads/main/RAPIDFIREPumpkinlauncher.lua", "Loading") end })
+   -- LS:CreateButton({ Name = "PTHM — P-Launcher",    Description = "Protect The House — projectile lagger",  Callback = function() ls("https://raw.githubusercontent.com/zukatech1/ZukaTechPanel/refs/heads/main/GameLaggerPlauncher.lua", "Loading Modification") end })
+   -- LS:CreateButton({ Name = "PTHM — Pumpkin",       Description = "Protect The House — rapid fire pumpkin", Callback = function() ls("https://raw.githubusercontent.com/zukatech1/ZukaTechPanel/refs/heads/main/RAPIDFIREPumpkinlauncher.lua", "Loading") end })
     LS:CreateSection("► Backrooms")
     LS:CreateButton({ Name = "Backrooms Gun Modifier",      Description = "For Backrooms",                     Callback = function() ls("https://raw.githubusercontent.com/zukatech1/Main-Repo/refs/heads/main/BackroomsWeaponEditor.lua", "Loaded") end })
-    LS:CreateButton({ Name = "God Weapons W Teamkill",      Description = "For Backrooms",                              Callback = function() ls("https://raw.githubusercontent.com/zukatech1/Main-Repo/refs/heads/main/opbasckrooms.lua", "Loaded") end })
-    LS:CreateButton({ Name = "God Weapons W Semi-AUto",     Description = "Semi-Auto Version",       Callback = function() ls("https://raw.githubusercontent.com/zukatech1/Main-Repo/refs/heads/main/PatchedGuns.lua", "Guns Patched.") end })
-    LS:CreateButton({ Name = "Fling Gun (Backrooms)",       Description = "For Backrooms",                             Callback = function() ls("https://raw.githubusercontent.com/zukatech1/Main-Repo/refs/heads/main/flingergunspatch.lua", "Loading, Wait a sec.") end })
+    --LS:CreateButton({ Name = "God Weapons W Teamkill",      Description = "For Backrooms",                              Callback = function() ls("https://raw.githubusercontent.com/zukatech1/Main-Repo/refs/heads/main/opbasckrooms.lua", "Loaded") end })
+  --  LS:CreateButton({ Name = "God Weapons W Semi-AUto",     Description = "Semi-Auto Version",       Callback = function() ls("https://raw.githubusercontent.com/zukatech1/Main-Repo/refs/heads/main/PatchedGuns.lua", "Guns Patched.") end })
+   -- LS:CreateButton({ Name = "Fling Gun (Backrooms)",       Description = "For Backrooms",                             Callback = function() ls("https://raw.githubusercontent.com/zukatech1/Main-Repo/refs/heads/main/flingergunspatch.lua", "Loading, Wait a sec.") end })
     LS:CreateSection("► Other Games")
     LS:CreateButton({ Name = "WOS — No Dash CD",     Description = "World of Stands — removes dash cooldown", Callback = function() ls("https://raw.githubusercontent.com/zukatech1/ZukaTechPanel/refs/heads/main/WOS.lua", "Loading, Wait a sec.") end })
         local Aimbot = {
@@ -695,11 +710,11 @@ task.spawn(function()
     AB:CreateToggle({ Name = "Wall Check", Description = "Only target visible players", CurrentValue = false,
         Callback = function(v) Aimbot.WallCheckEnabled = v end }, "luna_ab_wall")
     AB:CreateSection("Advanced")
-    AB:CreateToggle({ Name = "Hitbox Priority", Description = "Auto-pick best visible hitbox", CurrentValue = true,
+    AB:CreateToggle({ Name = "Hitbox Priority", Description = "Auto-pick best visible hitbox", CurrentValue = false,
         Callback = function(v) Aimbot.HitboxPriority = v end }, "luna_ab_hbp")
     AB:CreateToggle({ Name = "Sticky Target", Description = "Maintain lock on current target", CurrentValue = true,
         Callback = function(v) Aimbot.StickyTarget = v end }, "luna_ab_sticky")
-    AB:CreateToggle({ Name = "Prediction", Description = "Lead moving targets", CurrentValue = false,
+    AB:CreateToggle({ Name = "Prediction", Description = "Lead moving targets", CurrentValue = true,
         Callback = function(v) Aimbot.PredictionEnabled = v end }, "luna_ab_pred")
     AB:CreateSlider({ Name = "Prediction Multiplier", Range = {0.1,3.0}, Increment = 0.1, CurrentValue = 1.0,
         Callback = function(v) Aimbot.PredictionMultiplier = v end }, "luna_ab_predmult")
@@ -714,7 +729,7 @@ task.spawn(function()
     AB:CreateToggle({ Name = "Aim Randomization", Description = "Slight randomness for realism", CurrentValue = false,
         Callback = function(v) Aimbot.AimRandomization = v end }, "luna_ab_rand")
     AB:CreateSection("Visuals")
-    AB:CreateToggle({ Name = "Show FOV Circle", Description = "Draw FOV ring while aiming", CurrentValue = true,
+    AB:CreateToggle({ Name = "Show FOV Circle", Description = "Draw FOV ring while aiming", CurrentValue = false,
         Callback = function(v) Aimbot.ShowFOVCircle = v end }, "luna_ab_fovcircle")
     AB:CreateColorPicker({ Name = "FOV Color", Color = Color3.fromRGB(255,255,255),
         Callback = function(c) if Aimbot.FOVCircle then Aimbot.FOVCircle.Color = c end end }, "luna_ab_fovcol")
@@ -893,6 +908,7 @@ task.spawn(function()
                 return DoNotif("Set a target module name first.", 3)
             end
             if not getgenv().__PoisonHook then
+                -- hook if not already active
                 local oldRequire = require
                 getgenv().__PoisonHook = oldRequire
                 getgenv().require = function(mod)
@@ -947,6 +963,7 @@ task.spawn(function()
             end
             DoNotif("AC preset active — " .. #targets .. " targets poisoned.", 3)
         end })
+        
     Settings:CreateInput({ Name = "Command Prefix", Description = "Change your prefix  (default: ;)",
         PlaceholderText = "Single char e.g.  ;  !  .", CurrentValue = Prefix or ";",
         Numeric = false, MaxCharacters = 1, Enter = true,
@@ -1005,6 +1022,7 @@ task.spawn(function()
                 Window:ClearFlags()
                 DoNotif("Saved flags cleared. Rejoin to reset UI state.", 3)
             else
+                -- fallback: manually nil known flags
                 local flags = {"luna_fly","luna_noclip","luna_infjump","luna_antireset","luna_antisit",
                     "luna_ws","luna_flyspd","luna_grav","luna_esp","luna_chams","luna_fb",
                     "luna_nofog","luna_ll","luna_fps","luna_fov","luna_afk","luna_fp",
@@ -1014,43 +1032,53 @@ task.spawn(function()
         end })
     Settings:CreateButton({ Name = "Credits", Description = "By @OverZuka",
         Callback = function() DoNotif("We're so back!'", 3) end })
+    -- ░░ SCRIPTS TAB ░░
     local Scripts = Window:CreateTab({ Name = "Scripts", Icon = "code", ImageSource = "Material", ShowTitle = true })
     Scripts:CreateSection("Extras")
     Scripts:CreateLabel({ Text = "These will change the most.", Style = 3 })
     Scripts:CreateDivider()
+
     local function RunScript(url)
         if not url or url == "" then DoNotif("No URL set for this slot.", 2) return end
         local ok, err = pcall(function() loadstring(game:HttpGet(url, true))() end)
         if not ok then DoNotif("Script error: " .. tostring(err), 3) end
     end
+
     Scripts:CreateSection("Adonis Counter v2")
     local Script1_URL = "https://raw.githubusercontent.com/zukatech1/Main-Repo/refs/heads/main/counter.lua"
     Scripts:CreateInput({ Name = "1", PlaceholderText = "OverZuka", CurrentValue = "", Numeric = false, Enter = true, Callback = function(v) Script1_URL = v end }, "luna_script1_url")
     Scripts:CreateButton({ Name = "Execute", Description = "Executes an anticheat counter for adonis", Callback = function() RunScript(Script1_URL) end })
+
     Scripts:CreateSection("WRD Deobfuscator WIP")
     local Script2_URL = "https://pastebin.com/raw/7Yw5BCnQ"
     Scripts:CreateInput({ Name = "Deobfuscator", PlaceholderText = "Can Cause Crashes", CurrentValue = "", Numeric = false, Enter = true, Callback = function(v) Script2_URL = v end }, "luna_script2_url")
     Scripts:CreateButton({ Name = "Execute", Description = "Loads Zuka's Lifter.'", Callback = function() RunScript(Script2_URL) end })
+
     Scripts:CreateSection("Updated SimpleSpy")
     local Script3_URL = "https://raw.githubusercontent.com/zukatech1/Main-Repo/refs/heads/main/executor_scripts/SimpleSpyRework.lua"
     Scripts:CreateInput({ Name = "Remote Spy", PlaceholderText = "Everyones favorite", CurrentValue = "", Numeric = false, Enter = true, Callback = function(v) Script3_URL = v end }, "luna_script3_url")
     Scripts:CreateButton({ Name = "Execute", Description = "Working as of now", Callback = function() RunScript(Script3_URL) end })
+
     Scripts:CreateSection("Cframe Spoofer")
     local Script4_URL = "https://raw.githubusercontent.com/zukatech1/Main-Repo/refs/heads/main/Cframe.lua"
     Scripts:CreateInput({ Name = "Position/Hitbox Changer", PlaceholderText = "A better Desync", CurrentValue = "", Numeric = false, Enter = true, Callback = function(v) Script4_URL = v end }, "luna_script4_url")
     Scripts:CreateButton({ Name = "Execute", Description = "Pretty fun to use.", Callback = function() RunScript(Script4_URL) end })
+
     Scripts:CreateSection("Part Flinger V2 FE")
     local Script5_URL = "https://pastebin.com/raw/QHKAksQz"
     Scripts:CreateInput({ Name = "Ultimate Fling WIP", PlaceholderText = "Might be buggy", CurrentValue = "", Numeric = false, Enter = true, Callback = function(v) Script5_URL = v end }, "luna_script5_url")
     Scripts:CreateButton({ Name = " Execute", Description = "Really FUN to use", Callback = function() RunScript(Script5_URL) end })
+
     Scripts:CreateSection("Placeholder")
     local Script6_URL = ""
     Scripts:CreateInput({ Name = "Script 6 URL", PlaceholderText = "Paste raw script URL here", CurrentValue = "", Numeric = false, Enter = true, Callback = function(v) Script6_URL = v end }, "luna_script6_url")
     Scripts:CreateButton({ Name = "  Run Script 6", Description = "Executes loadstring on Script 6 URL", Callback = function() RunScript(Script6_URL) end })
+
     Scripts:CreateSection("Placeholder")
     local Script7_URL = ""
     Scripts:CreateInput({ Name = "Script 7 URL", PlaceholderText = "Paste raw script URL here", CurrentValue = "", Numeric = false, Enter = true, Callback = function(v) Script7_URL = v end }, "luna_script7_url")
     Scripts:CreateButton({ Name = "  Run Script 7", Description = "Executes loadstring on Script 7 URL", Callback = function() RunScript(Script7_URL) end })
+
     Scripts:CreateDivider()
     Scripts:CreateButton({ Name = "Run All? Will crash your game", Description = "Runs every slot that has a URL set",
         Callback = function()
@@ -1064,6 +1092,7 @@ task.spawn(function()
             end
             DoNotif("Ran " .. ran .. " script(s).", 2)
         end })
+
         local RC = Window:CreateTab({ Name = "Reach", Icon = "open_with", ImageSource = "Material", ShowTitle = true })
     RC:CreateSection("Tool Reach")
     RC:CreateLabel({ Text = " Equip a tool first, then apply reach", Style = 3 })
@@ -1134,5 +1163,5 @@ task.spawn(function()
     end))
     DoNotif("Use the removeadonis command if the game you're in uses adonis", 2)
 end)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/zukatech1/Main-Repo/refs/heads/main/notifier.lua"))()
-print("I update this pretty often, expect many things to change or be removed.")
+
+--loadstring(game:HttpGet(" "))()
