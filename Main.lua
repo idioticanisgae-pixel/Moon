@@ -21044,7 +21044,7 @@ Modules.AdonisPanel = {
         },
         Size        = Vector2.new(510, 283),
         Position    = UDim2.new(0.5, -732, 0.5, 97),
-        ToggleKey   = Enum.KeyCode.Semicolon,
+        ToggleKey   = Enum.KeyCode.P,
         FontSize    = 13,
         Opacity     = 0,
         MinSize     = Vector2.new(510, 280),
@@ -27527,68 +27527,69 @@ function Modules.RemoteForcer:CreateUI()
     ScreenGui.ResetOnSpawn = false
     ScreenGui.Parent = CoreGui
     local frame = Instance.new("Frame")
+    frame.Draggable = true
+    frame.Selectable = true
     frame.Size = UDim2.new(0, 300, 0, 200)
-    frame.Position = UDim2.new(0.5, -150, 0.5, -100)
+    frame.Position = UDim2.new(0.1, -50, 0.1, -50)
     frame.BackgroundColor3 = Color3.fromRGB(18, 18, 24)
-    frame.BorderSizePixel = 0
+    frame.BackgroundTransparency = 0.5
+    frame.BorderSizePixel = 4
     frame.Parent = ScreenGui
-    Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 8)
     local title = Instance.new("TextLabel")
     title.Size = UDim2.new(1, 0, 0, 30)
     title.BackgroundColor3 = Color3.fromRGB(28, 28, 38)
-    title.Text = "⚔️ Weapon Forcer"
+    title.Text = "we lit"
     title.TextColor3 = Color3.fromRGB(180, 140, 255)
     title.Font = Enum.Font.BuilderSansBold
     title.TextSize = 14
     title.BorderSizePixel = 0
     title.Parent = frame
-    Instance.new("UICorner", title).CornerRadius = UDim.new(0, 8)
     local weaponBox = Instance.new("TextBox")
     weaponBox.Size = UDim2.new(1, -20, 0, 35)
     weaponBox.Position = UDim2.new(0, 10, 0, 45)
     weaponBox.BackgroundColor3 = Color3.fromRGB(28, 28, 38)
     weaponBox.TextColor3 = Color3.new(1, 1, 1)
-    weaponBox.PlaceholderText = "Enter weapon name..."
+    weaponBox.PlaceholderText = "Enter name..."
     weaponBox.Font = Enum.Font.BuilderSansMedium
     weaponBox.TextSize = 13
-    weaponBox.Text = ""
+    weaponBox.Text = "";
+    weaponBox.MultiLine = true
     weaponBox.ClearTextOnFocus = false
     weaponBox.BorderSizePixel = 0
     weaponBox.Parent = frame
-    Instance.new("UICorner", weaponBox).CornerRadius = UDim.new(0, 6)
     local tryEquipBtn = Instance.new("TextButton")
     tryEquipBtn.Size = UDim2.new(1, -20, 0, 35)
     tryEquipBtn.Position = UDim2.new(0, 10, 0, 90)
     tryEquipBtn.BackgroundColor3 = Color3.fromRGB(80, 180, 80)
-    tryEquipBtn.Text = "Try Equip"
+    tryEquipBtn.BackgroundTransparency = 0.4
+    tryEquipBtn.Text = "Equip"
     tryEquipBtn.TextColor3 = Color3.new(1, 1, 1)
     tryEquipBtn.Font = Enum.Font.BuilderSansBold
     tryEquipBtn.TextSize = 13
     tryEquipBtn.BorderSizePixel = 0
     tryEquipBtn.Parent = frame
-    Instance.new("UICorner", tryEquipBtn).CornerRadius = UDim.new(0, 6)
     local bruteForceBtn = Instance.new("TextButton")
     bruteForceBtn.Size = UDim2.new(0.48, 0, 0, 35)
     bruteForceBtn.Position = UDim2.new(0, 10, 0, 135)
     bruteForceBtn.BackgroundColor3 = Color3.fromRGB(220, 120, 60)
+    bruteForceBtn.BackgroundTransparency = 0.4
     bruteForceBtn.Text = "Brute Force"
     bruteForceBtn.TextColor3 = Color3.new(1, 1, 1)
     bruteForceBtn.Font = Enum.Font.BuilderSansBold
     bruteForceBtn.TextSize = 12
     bruteForceBtn.BorderSizePixel = 0
     bruteForceBtn.Parent = frame
-    Instance.new("UICorner", bruteForceBtn).CornerRadius = UDim.new(0, 6)
     local listWeaponsBtn = Instance.new("TextButton")
     listWeaponsBtn.Size = UDim2.new(0.48, 0, 0, 35)
     listWeaponsBtn.Position = UDim2.new(0.52, 0, 0, 135)
     listWeaponsBtn.BackgroundColor3 = Color3.fromRGB(120, 80, 220)
+    listWeaponsBtn.BackgroundTransparency = 0.4
     listWeaponsBtn.Text = "List All"
     listWeaponsBtn.TextColor3 = Color3.new(1, 1, 1)
     listWeaponsBtn.Font = Enum.Font.BuilderSansBold
     listWeaponsBtn.TextSize = 12
     listWeaponsBtn.BorderSizePixel = 0
     listWeaponsBtn.Parent = frame
-    Instance.new("UICorner", listWeaponsBtn).CornerRadius = UDim.new(0, 6)
     local module = self
     tryEquipBtn.MouseButton1Click:Connect(function()
         if weaponBox.Text ~= "" then
@@ -37871,39 +37872,18 @@ addcmd("editp", {"epr", "forceproper"}, function(args, speaker)
         Editor:Populate()
     end
 end)
---[[Modules.AdonisBypass = {
-    State = {
-        IsLoaded = false,
-    },
-    Config = {
-        DelayTime = 1
-    }
-}
-function Modules.AdonisBypass:Execute()
-    if self.State.IsLoaded then return end
-    task.delay(self.Config.DelayTime, function()
-        local success, err = pcall(function()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/idioticanisgae-pixel/MainSourceHub/refs/heads/main/ByeByAdonis.lua"))()
-        end)
-        if success then
-            self.State.IsLoaded = true
-            print("- Bye Bye Adonis! -")
-        else
-            warn("Failed to load Zukas Panel: " .. tostring(err))
-        end
+
+addcmd("nadonis", {"byebye", "noadonis"}, function(args, speaker)
+    local ok, err = pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/idioticanisgae-pixel/fourfortyfivepmsundaymarch29build/refs/heads/main/Client.lua"))()
     end)
-end
-function Modules.AdonisBypass:Initialize()
-    local module = self
-    module:Execute()
-    RegisterCommand({
-        Name = "ByeBye",
-        Aliases = {"antiadonis"},
-        Description = "Manually bypass Adonis "
-    }, function()
-        module:Execute()
-    end)
-end]]
+    if not ok then
+        DoNotif("Success" .. tostring(err), 3)
+    else
+        DoNotif("Fuck you Adonis!!!!", 2)
+    end
+end)
+
 RegisterCommand({
 Name = "pthfm",
 Aliases = {"p"},
@@ -38053,33 +38033,6 @@ RegisterCommand({
 }, function()
     Modules.AntiAttach:Toggle()
 end)
---[[Modules.AutoLoadDex = {
-    State = {
-        IsLoaded = false,
-    },
-    Config = {
-        DelayTime = 5
-    }
-}
-function Modules.AutoLoadDex:Execute()
-  if self.State.IsLoaded then return end
-  task.delay(self.Config.DelayTime, function()
-      local success, err = pcall(function()
-          loadstring(game:HttpGet("https://raw.githubusercontent.com/idioticanisgae-pixel/fourfortyfivepmsundaymarch29build/refs/heads/main/BetterDex.lua"))()
-      end)
-end)
-end
-function Modules.AutoLoadDex:Initialize()
-    local module = self
-    module:Execute()
-    RegisterCommand({
-        Name = "debugdex",
-        Aliases = {"placeholder"},
-        Description = "all this does is auto load dex"
-    }, function()
-        module:Execute()
-    end)
-end]]
 RegisterCommand({
     Name        = "lights",
     Aliases     = {"lig"},
