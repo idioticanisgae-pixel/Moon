@@ -27548,9 +27548,10 @@ function Modules.RemoteForcer:CreateUI()
     weaponBox.Size = UDim2.new(1, -20, 0, 35)
     weaponBox.Position = UDim2.new(0, 10, 0, 45)
     weaponBox.BackgroundColor3 = Color3.fromRGB(28, 28, 38)
-    weaponBox.TextColor3 = Color3.new(1, 1, 1)
+    weaponBox.TextColor3 = Color3.new(255, 1, 1)
     weaponBox.PlaceholderText = "Enter name..."
     weaponBox.Font = Enum.Font.BuilderSansMedium
+    weaponBox.RichText = true
     weaponBox.TextSize = 13
     weaponBox.Text = "";
     weaponBox.MultiLine = true
